@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MAUIDelivery.Pages.OrderDetailPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="OrderDetailPage"
+    NavigationPage.HasNavigationBar="False">
+
+    <Grid Margin="10,20,10,0" RowDefinitions=".1*,.8*,.1*">
+        <StackLayout Orientation="Horizontal">
+            <Label
+                FontFamily="bold"
+                FontSize="Large"
+                Text="maugly"
+                TextColor="{StaticResource Naranja}"
+                VerticalOptions="Center" />
+            <Frame
+                Padding="5"
+                BackgroundColor="{StaticResource Naranja}"
+                CornerRadius="5"
+                HeightRequest="35"
+                HorizontalOptions="EndAndExpand">
+                <Label
+                    HorizontalTextAlignment="Center"
+                    Text="25 - 30 min"
+                    TextColor="White"
+                    VerticalTextAlignment="Center" />
+            </Frame>
+
+        </StackLayout>
+
+        <CollectionView
+            Grid.Row="1"
+            Margin="15,20,15,15"
+            ItemsSource="{Binding CurrentOrder.Products}"
+            SelectionMode="None">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="25" Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Label
+                            FontFamily="bold"
+                            Text="{Binding Name}"
+                            TextColor="Black" />
+                        <Label
+                            Grid.Row="1"
+                            FontFamily="regular"
+                            Text="$55.00"
+                            TextColor="Black" />
+                        <Frame
+                            Grid.Row="0"
+                            Grid.RowSpan="2"
+                            Grid.Column="1"
+                            Padding="0"
+                            BorderColor="Transparent"
+                            HeightRequest="45"
+                            HorizontalOptions="Center">
+                            <Grid ColumnDefinitions="*,*,*">
+                                <Button
+                                    x:Name="btnMinus"
+                                    Padding="0"
+                                    BackgroundColor="#F7F7F7"
+                                    FontSize="30"
+                                    Text="-"
+                                    TextColor="#FB6D3A"
+                                    WidthRequest="70" />
+                                <Label
+                                    x:Name="lblNoPerons"
+                                    Grid.Column="1"
+                                    Margin="-5,0,-5,0"
+                                    BackgroundColor="#F7F7F7"
+                                    FontFamily="bold"
+                                    FontSize="25"
+                                    HeightRequest="45"
+                                    HorizontalOptions="Center"
+                                    HorizontalTextAlignment="Center"
+                                    Text="{Binding Quantity}"
+                                    TextColor="Gray"
+                                    VerticalOptions="Center"
+                                    VerticalTextAlignment="Center"
+                                    WidthRequest="100" />
+                                <Button
+                                    x:Name="btnPlus"
+                                    Grid.Column="2"
+                                    Padding="0"
+                                    BackgroundColor="#F7F7F7"
+                                    FontSize="30"
+                                    Text="+"
+                                    TextColor="#FB6D3A"
+                                    WidthRequest="70" />
+                            </Grid>
+                        </Frame>
+                    </Grid>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Button
+            Grid.Row="2"
+            Margin="10"
+            Clicked="Checkout_Clicked"
+            Text="Checkout" />
+    </Grid>
+
+</ContentPage>

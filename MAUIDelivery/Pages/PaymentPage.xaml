@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MAUIDelivery.Pages.PaymentPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+    Title="PaymentPage"
+    BackgroundColor="#503E9D"
+    NavigationPage.HasNavigationBar="False">
+
+    <Grid RowDefinitions=".2*,.8*">
+        <Label
+            FontFamily="bold"
+            FontSize="Title"
+            HorizontalOptions="Center"
+            Text="Payment Method"
+            TextColor="White"
+            VerticalOptions="Center" />
+        <Grid Grid.Row="1" RowDefinitions=".1*,.1*,.6*,.2*">
+            <BoxView
+                Grid.RowSpan="4"
+                CornerRadius="20,20,0,0"
+                Color="#F7F7F7" />
+
+            <Label
+                Margin="15"
+                FontFamily="bold"
+                FontSize="Large"
+                Text="My Cards"
+                TextColor="#2D2D2D" />
+            <Frame
+                Grid.Row="1"
+                Margin="15"
+                Padding="5"
+                BorderColor="Transparent"
+                CornerRadius="10"
+                HeightRequest="55">
+                <StackLayout Orientation="Horizontal">
+                    <Button
+                        Background="#F7F7F7"
+                        FontSize="Large"
+                        Text="+"
+                        TextColor="#A3A3A4" />
+                    <Label
+                        Margin="15,0,0,0"
+                        Text="Add New Card"
+                        TextColor="#A3A3A4"
+                        VerticalOptions="Center" />
+                </StackLayout>
+
+            </Frame>
+            <CollectionView Grid.Row="2" Margin="15">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemsSource>
+                    <x:Array Type="{x:Type x:String}">
+                        <x:String>**** **** **** 8723</x:String>
+                        <x:String>**** **** **** 2749</x:String>
+                        <x:String>**** **** **** 3392</x:String>
+                    </x:Array>
+                </CollectionView.ItemsSource>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame BorderColor="Transparent" CornerRadius="10">
+                            <StackLayout Orientation="Horizontal">
+                                <RadioButton Content="{Binding .}" GroupName="Addresses" />
+                                <Image HorizontalOptions="EndAndExpand" WidthRequest="5">
+                                    <Image.Source>
+                                        <FontImageSource
+                                            FontFamily="AwesomeSolid"
+                                            Glyph="&#xf142;"
+                                            Color="#A3A3A4" />
+                                    </Image.Source>
+                                </Image>
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Button
+                Grid.Row="3"
+                Margin="15"
+                Clicked="Pay_Clicked"
+                Text="Pay Now            $258.99" />
+        </Grid>
+
+        <Grid
+            x:Name="paymentScreen"
+            Grid.RowSpan="2"
+            BackgroundColor="Black"
+            IsVisible="False"
+            Opacity=".8">
+            <skia:SKLottieView
+                x:Name="animation"
+                IsAnimationEnabled="False"
+                Source="payment.json" />
+        </Grid>
+
+    </Grid>
+
+</ContentPage>

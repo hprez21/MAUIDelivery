@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MAUIDelivery.Pages.ProductPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:selectors="clr-namespace:MAUIDelivery.Selectors"
+    Title="ProductPage"
+    NavigationPage.HasNavigationBar="False">
+
+    <ContentPage.Resources>
+        <selectors:ProductDataTemplateSelector x:Key="optionsSelector" />
+    </ContentPage.Resources>
+
+
+    <Grid RowDefinitions=".2*,*, Auto">
+        <Grid>
+
+            <Image Aspect="AspectFill" Source="{Binding CurrentProduct.Image}" />
+            <Grid BackgroundColor="Black" Opacity=".8" />
+            <Label
+                FontFamily="bold"
+                FontSize="Large"
+                HorizontalOptions="Center"
+                Text="{Binding CurrentProduct.Name}"
+                TextColor="White"
+                VerticalOptions="Center" />
+        </Grid>
+
+        <CollectionView
+            Grid.Row="1"
+            Margin="10,15,0,0"
+            IsGrouped="True"
+            ItemTemplate="{StaticResource optionsSelector}"
+            ItemsSource="{Binding Options}">
+            <CollectionView.Resources>
+                <DataTemplate x:Key="checkOption">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width=".8*" />
+                            <ColumnDefinition Width=".2*" />
+                        </Grid.ColumnDefinitions>
+                        <HorizontalStackLayout>
+                            <CheckBox
+                                x:Name="IsSelected"
+                                IsChecked="{Binding IsSelected}"
+                                VerticalOptions="Center"
+                                Color="{StaticResource Morado}" />
+                            <Label
+                                FontFamily="bold"
+                                Text="{Binding Name}"
+                                TextColor="{StaticResource GrisOscuro2}"
+                                VerticalOptions="Center">
+                                <Label.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding Source={x:Reference IsSelected}, Path=IsChecked}"
+                                        TargetType="Label"
+                                        Value="True">
+                                        <Setter Property="FontFamily" Value="bold" />
+                                        <Setter Property="TextColor" Value="#262628" />
+                                    </DataTrigger>
+                                    <DataTrigger
+                                        Binding="{Binding Source={x:Reference IsSelected}, Path=IsChecked}"
+                                        TargetType="Label"
+                                        Value="False">
+                                        <Setter Property="FontFamily" Value="medium" />
+                                        <Setter Property="TextColor" Value="#A3A3A4" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                        </HorizontalStackLayout>
+                        <Label
+                            Grid.Column="1"
+                            HorizontalOptions="End"
+                            Text="{Binding price, StringFormat='+{0:c}'}"
+                            TextColor="{StaticResource Morado}" />
+                    </Grid>
+
+                </DataTemplate>
+                <DataTemplate x:Key="radioOption">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width=".8*" />
+                            <ColumnDefinition Width=".2*" />
+                        </Grid.ColumnDefinitions>
+                        <HorizontalStackLayout>
+                            <RadioButton
+                                x:Name="IsSelected"
+                                GroupName="{Binding GroupName}"
+                                IsChecked="{Binding IsSelected}"
+                                TextColor="#503E9D"
+                                VerticalOptions="Center" />
+                            <Label
+                                FontFamily="bold"
+                                Text="{Binding Name}"
+                                TextColor="{StaticResource GrisOscuro2}"
+                                VerticalOptions="Center">
+                                <Label.Triggers>
+                                    <DataTrigger
+                                        Binding="{Binding Source={x:Reference IsSelected}, Path=IsChecked}"
+                                        TargetType="Label"
+                                        Value="True">
+                                        <Setter Property="FontFamily" Value="bold" />
+                                        <Setter Property="TextColor" Value="#262628" />
+                                    </DataTrigger>
+                                    <DataTrigger
+                                        Binding="{Binding Source={x:Reference IsSelected}, Path=IsChecked}"
+                                        TargetType="Label"
+                                        Value="False">
+                                        <Setter Property="FontFamily" Value="medium" />
+                                        <Setter Property="TextColor" Value="#A3A3A4" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                        </HorizontalStackLayout>
+                        <Label
+                            Grid.Column="1"
+                            HorizontalOptions="End"
+                            Text="{Binding price, StringFormat='+{0:c}'}"
+                            TextColor="{StaticResource Morado}" />
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.Resources>
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <Label
+                        FontFamily="bold"
+                        Text="{Binding Name}"
+                        TextColor="{StaticResource Naranja}" />
+                </DataTemplate>
+            </CollectionView.GroupHeaderTemplate>
+        </CollectionView>
+
+
+
+        <Grid
+            Grid.Row="3"
+            ColumnDefinitions=".6*,.4*"
+            HeightRequest="70"
+            VerticalOptions="End">
+            <Frame
+                Padding="0"
+                BorderColor="Transparent"
+                HorizontalOptions="Center">
+                <Grid ColumnDefinitions="*,*,*">
+                    <Button
+                        x:Name="btnMinus"
+                        Padding="0"
+                        BackgroundColor="#F7F7F7"
+                        Clicked="btnMinus_Clicked"
+                        FontSize="30"
+                        Text="-"
+                        TextColor="#FB6D3A" />
+                    <Label
+                        x:Name="lblNoPerons"
+                        Grid.Column="1"
+                        Margin="-5,0,-5,0"
+                        BackgroundColor="#F7F7F7"
+                        FontFamily="bold"
+                        FontSize="25"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        Text="1"
+                        TextColor="Gray"
+                        VerticalOptions="FillAndExpand"
+                        VerticalTextAlignment="Center"
+                        WidthRequest="100" />
+                    <Button
+                        x:Name="btnPlus"
+                        Grid.Column="2"
+                        Padding="0"
+                        BackgroundColor="#F7F7F7"
+                        Clicked="btnPlus_Clicked"
+                        FontSize="30"
+                        Text="+"
+                        TextColor="#FB6D3A" />
+                </Grid>
+            </Frame>
+            <Grid Grid.Column="1">
+                <Button
+                    x:Name="Add"
+                    Padding="10"
+                    BackgroundColor="{StaticResource Naranja}"
+                    Clicked="Add_Clicked"
+                    CornerRadius="10"
+                    Text="ADD $25.00" />
+            </Grid>
+        </Grid>
+    </Grid>
+
+
+</ContentPage>

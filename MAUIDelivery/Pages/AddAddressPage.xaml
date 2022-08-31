@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MAUIDelivery.Pages.AddAddressPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="AddAddressPage"
+    NavigationPage.HasNavigationBar="False">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height=".4*" />
+            <RowDefinition Height=".6*" />
+        </Grid.RowDefinitions>
+        <Grid>
+            <Image Aspect="Center" Source="mapholder.png" />
+            <Image
+                HorizontalOptions="Center"
+                Source="pin"
+                VerticalOptions="Center" />
+        </Grid>
+        <Frame
+            Grid.Row="1"
+            Margin="0,-15,0,0"
+            BackgroundColor="White"
+            CornerRadius="25">
+            <VerticalStackLayout>
+                <Label
+                    Margin="0,0,0,15"
+                    FontFamily="bold"
+                    FontSize="Large"
+                    HorizontalOptions="Center"
+                    Text="Select your location"
+                    TextColor="Black" />
+                <Frame Padding="0" BackgroundColor="#F6F6F6">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width=".1*" />
+                            <ColumnDefinition Width=".9*" />
+                        </Grid.ColumnDefinitions>
+                        <Image
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            WidthRequest="20">
+                            <Image.Source>
+                                <FontImageSource
+                                    FontFamily="AwesomeSolid"
+                                    Glyph="&#xf002;"
+                                    Color="Black" />
+                            </Image.Source>
+                        </Image>
+                        <Entry Grid.Column="1" Placeholder="Find a location" />
+                    </Grid>
+                </Frame>
+                <Entry Placeholder="Exact Address (Av., Street, Zone, Colony...)" Text="40547 E Lone Lake Rd" />
+                <Entry Placeholder="Address Reference" />
+                <Button
+                    Margin="0,20,0,0"
+                    BackgroundColor="#FB7647"
+                    Clicked="SaveAddress_Clicked"
+                    Command="{Binding GuardarDireccionCommand}"
+                    Text="Save Address" />
+            </VerticalStackLayout>
+        </Frame>
+    </Grid>
+
+</ContentPage>
